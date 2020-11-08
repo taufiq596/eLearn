@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block style %}
+<style>
+</style>
+{% endblock style %}
+
+{% block content %} 
+<div class="container">
+      {% if messages %}
+      {% for message in messages %}
+      <div {% if message.tags %} class="alert alert-{{message.tags}} alert-dismissible fade show" {% endif%}>
+        <strong>{{message}}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="close"><span
+            aria-hidden="true">&times;</span></button>
+      </div>
+      {% endfor %}
+      {% endif %}
+      <a href="{% url 'addpost' %}" class="btn btn-success my-3">AddPost</a>
+      <h4 class="text-center alert alert-warning">Show Post Information</h4>
+      {% if allpost %}
+      <table class="table table-hover bg-white">
+        <thead>
+          <tr class="text-center">
+            <th scope="col" style="width:5%" class="text-primary">Image</th>
+            <th scope="col" style="width:25%" class="text-primary">Title</th>
+            <th scope="col" style="width:55%" class="text-primary">Content</th>
+            <th scope="col" style="width:15%" class="text-primary">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for post in allpost %}
+          <tr>
+            <td  style="width:5%" class="text-center">
+            <img src="/media/{{post.image}}" alt="{{post.title}}" style="width:120px; height: 60px;">
+          </td >
+            <th style="width:25%" class="text-center">{{post.title}}</th>
+            <td style="width:55%">{{post.content|truncatechars:200}}</td>
+            <td style="width:15%" class="text-center">
+              <a href="{% url 'update' post.id %}" class="btn btn-warning mb-2 ">Edit</a>
+              {% if perms.blog.delete_post %}
+              <form action="{% url 'delete' post.id %}" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="Delete" class="btn btn-danger btn-sm">
+              </form>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <h4 class="alert alert-danger">No Records Found:</h4>
+      {% endif %}
+    </div>
+{% endblock %}

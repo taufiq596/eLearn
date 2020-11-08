@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Register{% endblock %}
+{% block style %} 
+    <style>
+    .form-control{
+        width:330px;
+        height:30px;
+    }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="row my-6">
+<div class="col-md-4 offset-4">
+{% if messages %}
+{% for message in messages %}
+    <div {% if message.tags %} class="alert alert-{{message.tags}} alert-dismissible fade show" {% endif%}>
+         <strong>{{message}}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="close"><span aria-hidden="true">&times;</span></button>
+    </div>
+{% endfor %}
+{% endif %}
+<h4 class="mt-1 text-primary">Sign Up</h4>
+<h6 class="my-0 text-primary">It's quick and easy.</h6>
+
+<form action="/register/" method="POST" novalidate>{% csrf_token %}
+<div class="form-group">
+    {% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+        <p> {{error}}</p>
+    {% endfor %}
+    {% endif %}
+    
+    {% for fm in form %}
+        <div> {{fm.label_tag}}{{fm}}<p class="text-danger my-0">{{fm.errors|striptags}}</p></div>
+    {% endfor %}
+    <input type="submit" value="Sign up" class="btn btn-success mt-2">
+    </div>
+</form>
+</div>
+</div>
+</div>
+{% endblock %}

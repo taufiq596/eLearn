@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Blog{% endblock %}
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-sm">
+            <div class="col-sm">
+                <div class="row row-cols-1 row-cols-md-1">
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div {% if message.tags %} class="alert alert-{{message.tags}} alert-dismissible fade show"
+                        {% endif%}>
+                        <strong>{{message}}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="close"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+                    {% endfor %}
+                    {% endif%}
+<div class="container-flud my-3">
+<div class="row">
+<div class="col-sm">
+<div class="col-sm">
+<a href="{% url 'blog' %}" class="btn btn-primary my-2">Back</a>
+<div class="row row-cols-1">
+    <div class="col mb-4">
+        <div>
+            <div class="bg-light pb-1"> <b
+                    class="bg-primary text-white pb-1">{{ allpost.date }}</b> Article by
+                {{ allpost.author }} ({{allpost.view}} Views)</div>
+            <img src="/media/{{allpost.image}}" class="card-img-top"
+                alt="{{allpost.title}}" style="height:100px;">
+            <div class="card-body" style="height: 250px;">
+                <h5 class="card-title">{{allpost.title}}</h5>
+                <hr>
+                <div class="my-2">
+                    <p class="card-text">{{allpost.content}}</p>
+                    <hr>
+                    <div>
+                        <h3>Comments...({{comments.count}})</h3>
+                        <form action="/comment/" method="POST">
+                            {% csrf_token %}
+                            <textarea type="text" placeholder="Comments" name='comment'></textarea>
+                            <input type="hidden" name='id' value="{{allpost.id}}">
+                            <input type="submit" value="Comment" class="btn btn-primary mb-4">
+                        </form>
+                    </div>
+                    <hr>
+                    {% if comments %}
+                    {% for comment in comments%}
+                    <div class="row my-0">
+                        <div class="col-md-1">
+                        <img src="{% static 'myapp/image/comment.png'%}" alt="image" style="width:90px; height:40px" class="mb-0">
+                        </div>
+                        <div class="col-md-11">
+                        {{ comment.comment }} | by- <b>{{comment.user}}</b> at {{comment.timestamp}}<br>
+                        </div>
+                    </div><hr>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+    </div>
+</div>
+{% endblock %}

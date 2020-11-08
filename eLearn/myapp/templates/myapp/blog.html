@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Blog{% endblock %}
+{% block content %}
+   <div class="container-flud my-5">
+   <div class="row">
+   <div class="col-md-6 offset-5 mb-3">
+      <form action="{% url 'search' %}" class="form-inline my-2 my-lg-0" method="POST">
+      {% csrf_token %}
+      <input class="form-control mr-md-2" type="search" name="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    </div>
+   </div>
+   {% if norecord %}
+   <div class="container">
+    <div class="row">
+    <div class="col-md-6 offset-3">
+    
+   <div>
+   <h4 class="text-center text-danger my-3">{{norecord}}</h4>
+    <h6>Suggestions:</h6>
+   <ul>
+       <li>Make sure that all words are spelled correctly.</li>
+       <li>Try different keywords.</li>
+       <li>Try more general keywords.</li>
+       <li>Try fewer keywords.</li>
+   </ul>
+   <a href="{% url 'blog' %}" class="btn btn-info">Back</a>
+   {% endif %}
+   </div>
+   </div>
+    </div>
+   </div>
+    <div class="row">
+        <div class="col-sm">
+            <div class="col-sm">
+                <div class="row row-cols-1 row-cols-md-3">
+                {% for post in allpost %}
+                <div class="col mb-4">
+                    <div class="card">
+                    <div class="bg-light "> <b class="bg-info pb-2">{{ post.date }}</b> Article by {{post.author}} <label>({{post.view}} Views)</label></div>
+                    <img src="/media/{{post.image}}" class="card-img-top" alt="{{post.title}}" style="height:100px;">
+                    <div class="card-body" style="height: 250px;">
+                        <h5 class="card-title">{{post.title}}</h5>
+                        <hr>
+                        <div class="my-2">
+                        <p class="card-text mb-2">{{post.content|truncatechars:200}}</p>
+                          <a href="/blog/{{post.slug}}" role="button" class="btn btn-primary">Read more</a> 
+                          
+                        </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

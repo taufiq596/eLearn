@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}About{% endblock %}
+{% block content %} 
+    <div class="container">
+    <h3 class="text-center alert text-info my-3">About Us</h3>
+    <div class="card mb-3">
+        <div class="row no-gutters">
+            <div class="col-sm-4">
+                <img src="{% static 'myapp/image/taufiq.jpg' %}" class="card-img" alt="taufiq"
+                    style="height:300px; width:auto">
+            </div>
+            <div class="col-sm-8">
+                <div class="card-body">
+                    <h5 class="card-title text-info"><i><strong>Hi, I am Taufiq!</strong></i></h5>
+                    <p class="card-text">This is a Blog Manager site which is designed and developed by me. This blog is
+                        used technology
+                        Django is a Python-based free and open-source web framework that follows the model-template-view architectural pattern.
+                        Lorem ipsum dolor sit. suscipit
+                        quos sint explicabo eos animi, expedita nulla repudiandae perferendis nostrum culpa fugit
+                        blanditiis, esse veritatis
+                        voluptatibus similique inventore modi necessitatibus officiis repellendus veniam. Expedita natus
+                        quis odio ipsum
+                        dicta eligendi enim magnam fugit doloribus neque? Alias non nesciunt animi adipisci. Lorem ipsum
+                        dolor sit amet
+                        consectetur adipisicing elit. Cupiditate iusto molestias omnis ipsum minus aut odit officiis
+                        nulla, accusamus dolore ut
+                        incidunt blanditiis obcaecati? Amet, facere tempora? Quae, maxime sint. </p>
+                    <p class="card-text"><small class="text-muted">Last updated: {{users.0.last_login}}</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Contact{% endblock %}
+{% block content %} 
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 offset-1">
+      <h2 class="text-info text-center mt-3">Contact Us</h2>
+      <h5 class="text-info text-center">How May I Help You:</h5>
+      {% if messages %}
+      {% for message in messages %}
+      <div {% if message.tags %} class="alert alert-{{message.tags}} alert-dismissible fade show" {% endif%}>
+        <strong>{{message}}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="close"><span
+            aria-hidden="true">&times;</span></button>
+      </div>
+      {% endfor %}
+      {% endif %}
+      <form action="" method="POST" novalidate>
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+        <p>{{error}}</p>
+        {% endfor %}
+        {% endif %}
+        {% for fm in form %}
+        <div class="form-group">
+          {{fm.label_tag}} {{fm}} <p class=" alert-danger">{{fm.errors|striptags}}</p>
+        </div>
+        {% endfor %}
+        <input type="submit" value="Submit" class="btn btn-primary mt-2">
+      </form>
+    </div>
+    <div class="col-sm-4">
+      <div class="m-5">
+        <h5 class="text-warning">eLearn</h5>
+        <h5 class="text-primary"><i class="far fa-envelope text-secondary"></i> taufiq596@gmail.com</h5>
+        <h5 class="text-primary"><i class="fab fa-whatsapp text-success"></i> +91-9889960134</h5>
+        <h5 class="text-primary"><i class="fas fa-phone text-primary"></i> New Delhi</h5>
+        <h5 class="text-primary"><i class="far fa-paper-plane text-info"></i>110062</h5>
+        <div class="my-5">
+        <h3> <i class="fab fa-facebook-square text-primary mx-2"></i> <i class="fab fa-twitter text-info mx-2"></i><i
+            class="fab fa-pinterest-p text-danger mx-2"></i> <i class="fab fa-instagram text-danger mx-2"></i></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

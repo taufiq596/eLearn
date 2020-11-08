@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<div class="row my-5">
+
+<div class="col-md-4 offset-4">
+{% if messages %}
+      {% for message in messages %}
+      <div {% if message.tags %} class="alert alert-{{message.tags}} alert-dismissible fade show" {% endif%}>
+        <strong>{{message}}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="close"><span
+            aria-hidden="true">&times;</span></button>
+      </div>
+      {% endfor %}
+      {% endif %}
+ <h3 class="bg-info text-center my-3">Have you already Account</h3>
+            <form action="" method="POST" novalidate>
+                {% csrf_token %}
+                   {% if form.non_field_errors %}
+                   {% for error in form.non_field_errors %}
+                   <p class="text-danger">{{error}}</p>
+                   {% endfor %}
+                   {% endif %}
+                   {% for fm in form %}
+                   <div>
+                     {{fm.label_tag}} {{fm}} <p class="text-danger">{{fm.errors|striptags}}</p>
+                    </div>
+                   {% endfor %}
+                <input type="submit" value="Login" class="btn btn-success">
+            </form>
+  {% endblock %}
+  </div>
+</div>
